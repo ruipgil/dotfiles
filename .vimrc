@@ -22,6 +22,7 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tpope/vim-markdown'
 
 
 call neobundle#end()

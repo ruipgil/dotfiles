@@ -23,7 +23,10 @@ NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-markdown'
-
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'junegunn/goyo.vim'
+NeoBundle 'myint/syntastic-extras'
+NeoBundle 'ekalinin/Dockerfile.vim'
 
 call neobundle#end()
 
@@ -32,6 +35,7 @@ filetype plugin indent on
 NeoBundleCheck " auto install
 " }}}
 
+let mapleader=","
 
 filetype plugin on
 filetype indent on " enable filetype plugins
@@ -44,8 +48,10 @@ set wildmenu " shows wild menu
 set ruler " current position
 set cmdheight=2 " height of the command bar
 set hid " buffer becomes hidden when it is abandoned
-set backspace=eol,start,indent " fixes backspace (part 1)
-set whichwrap+=<,>,h,l " fixes backspace (part 2)
+ " fixes backspace (part 1)
+set backspace=eol,start,indent
+ " fixes backspace (part 2)
+set whichwrap+=<,>,h,l
 if has('mouse')
   set mouse=a " a mouse!
 endif
@@ -86,7 +92,8 @@ set wrap " wrap lines
 set laststatus=2
 
 set showcmd    " show command in bottom bar
-" set cursorline " highlight current line
+" highlight current line
+set cursorline
 nnoremap <leader><space> :nohlsearch<CR> " turn off search highlight
 
 set clipboard=unnamed " All yank commands now go to mac clipboard
@@ -97,9 +104,9 @@ set shell=/bin/bash " Use /bin/sh for executing shell commands
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 
 set wildignore+=.DS_Store
-set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
-set wildignore+=*/bower_components/*,*/node_modules/*
-set wildignore+=*/smarty/*,*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
+"set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
+"set wildignore+=*/bower_components/*,*/node_modules/*
+"set wildignore+=*/smarty/*,*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
 set wildmode=list:longest " Complete only until point of ambiguity
 set wrapscan " Searches wrap around end of file
 
@@ -314,7 +321,7 @@ augroup syntastic_config
   autocmd!
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
-  " let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_javascript_checkers = ['eslint']
 
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
@@ -343,3 +350,8 @@ augroup filetype_markdown
 augroup END
 " }}}
 
+let g:syntastic_make_checkers = ['gnumake']
+let g:syntastic_javascript_checkers = ['json_tool']
+let g:syntastic_gitcommit_checkers = ['language_check']
+let g:syntastic_python_checkers = ['pyflakes_with_warnings']
+let g:syntastic_disabled_filetypes=['java']

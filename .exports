@@ -4,6 +4,7 @@ export GOPATH=~/ruipgil/golang
 
 # vim as default
 export EDITOR="vim"
+export VISUAL="vim"
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
@@ -19,3 +20,5 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 eval "$(gdircolors -b ~/.dircolors)"
 
+export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

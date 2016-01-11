@@ -14,8 +14,8 @@ set mark-symlinked-directories on
 "\e[A": history-search-backward
 
 # ctrl left, ctrl right for moving on the readline by word
-"\e[1;5C": forward-word
-"\e[1;5D": backward-word
+#"\e[f": forward-word
+#"\e[b": backward-word
 
 # Do not autocomplete hidden files unless the pattern explicitly begins with a dot
 set match-hidden-files off
@@ -37,10 +37,10 @@ set visible-stats on
 set skip-completed-text on
 
 # Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
-set input-meta on
-set output-meta on
-set convert-meta off
+#set input-meta on
+#set output-meta on
+#set convert-meta off
 
 # Use Alt/Meta + Delete to delete the preceding word
-"\e[3;3~": kill-word
+#"\e[3;3~": kill-word
 

@@ -116,3 +116,15 @@ camerausedby() {
 shellswitch () {
 	chsh -s $(brew --prefix)/bin/$1
 }
+
+dokcer-pid () {
+	docker inspect --format '{{ .State.Pid }}' "$@"
+}
+
+docker-ip() {
+	docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+}
+
+bdocker-fix() {
+	boot2docker stop && boot2docker delete && boot2docker init && boot2docker start
+}

@@ -76,3 +76,5 @@ shopt -s nocaseglob;
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
+# Setups docker if it can
+$(docker shellinit) 2> /dev/null

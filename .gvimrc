@@ -1,1 +1,1 @@
-set guifont=Menlo\ for\ Powerline:13
+set guifont=Menlo\ for\ Powerline:h13

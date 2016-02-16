@@ -37,24 +37,19 @@ NeoBundleCheck " auto install
 
 let mapleader=","
 
-filetype plugin on
-filetype indent on " enable filetype plugins
 set history=500 " lines to remember
 set autoread " reload when file is changed from the outside
 set number " show line number
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+set scrolloff=7
 set wildmenu " shows wild menu
 set ruler " current position
 set cmdheight=2 " height of the command bar
 set hid " buffer becomes hidden when it is abandoned
- " fixes backspace (part 1)
+ " fixes backspace
 set backspace=eol,start,indent
- " fixes backspace (part 2)
 set whichwrap+=<,>,h,l
-if has('mouse')
-  set mouse=a " a mouse!
-endif
+set mouse=a " a mouse!
 set ignorecase " ignore case when searching
 set smartcase " try to guess cases when searching
 set hlsearch " highlight search results
@@ -64,29 +59,28 @@ set magic " on regular expressions
 set showmatch " matching brackets
 set mat=2 " matching brackets matching blink speed
 
+" Syntax highlighting {{{
 " Enable syntax highlighting
 syntax enable
-" set foldcolumn=1 " extra margin to the left
+set t_Co=256
 set background=light
-" let g:solarized_termcolors=256
-" let g:solarized_visibility="high"
-" let g:solarized_contrast="high"
 colorscheme solarized
+" }}}
 
 set encoding=utf8
 set ffs=unix,dos,mac " Unix as the standard file type
 
-" Turn off backup (TODO)
-set nobackup
-set nowb
-set noswapfile
+" Local directories {{{
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+set undodir=~/.vim/undo
+" }}}
 
 set smarttab
 set lbr " words don't get cut on linebreaks
 set tw=500 " linebreak on 500 chars
 
 set ai " auto indent
-set si " smart indent
 set wrap " wrap lines
 
 set laststatus=2
@@ -100,7 +94,7 @@ set clipboard=unnamed " All yank commands now go to mac clipboard
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_ " ws chars
 set list " show white spaces
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
-set shell=/bin/bash " Use /bin/sh for executing shell commands
+set shell=/bin/sh " Use /bin/sh for executing shell commands
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 
 set wildignore+=.DS_Store
@@ -179,31 +173,12 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
 catch
 endtry
-
-" Return to last edit position when opening files (You want this!)
-" autocmd BufReadPost *
-"      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"      \   exe "normal! g`\"" |
-"      \ endif
-" Remember info about open buffers on close
-" set viminfo^=%
-
-
-
-" No annoying sound on errors TODO
-"set noerrorbells
-"set novisualbell
-"set t_vb=
-"set tm=500
-
-
-
 
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en'
@@ -212,7 +187,6 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
 
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -222,11 +196,45 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
+" Configuration settings -------------------------------------------------------------
+
+" General {{{
+
+map <leader>vimrc :tabe ~/.vimrc
+autocmd bufwritepost .vimrc source $MYVIMR
+
+" Remap :W to :w {{{
+command! W w
+" }}}
+
+" Paste toggle (,p) {{{
+set pastetoggle=<leader>p
+map <leader>p :set invpaste paste?<CR>
+" }}}
+
+" Yank from cursor to end of line {{{
+nnoremap Y y$
+" }}}
+
+" Insert newline {{{
+map <leader><Enter> o<ESC>
+" }}}
+
+" Search and replace word under cursor (,*) {{{
+nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
+vnoremap <leader>* "hy:%s/\V<C-r>h//<left>
+" }}}
+
+" Strip trailing whitespace (,ss) {{{
+function! StripWhitespace () " {{{
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction " }}}
+noremap <leader>ss :call StripWhitespace ()<CR>
+" }}}
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -247,14 +255,6 @@ function! VisualSelection(direction, extra_filter) range
 
     let @/ = l:pattern
     let @" = l:saved_reg
-endfunction
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
 endfunction
 
 " Don't close window, when deleting a buffer
@@ -302,6 +302,18 @@ augroup word_processor_mode
 augroup END
 " }}}
 
+" Standard format js
+augroup format_js
+  autocmd!
+
+  " TODO: check file type
+  command! Fmt silent !standard-format % --write
+augroup END
+" }}}
+
+
+" Plugins settings -------------------------------------------------------------
+
 " Airline.vim {{{
 augroup airline_config
   autocmd!
@@ -321,25 +333,36 @@ augroup syntastic_config
   autocmd!
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
-  let g:syntastic_javascript_checkers = ['eslint']
+  let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
 
-  " let g:syntastic_always_populate_loc_list = 1
-  " let g:syntastic_auto_loc_list = 1
-  " let g:syntastic_check_on_open = 1
-  " let g:syntastic_check_on_wq = 0
+  " Language checkers {{{
+  let g:syntastic_make_checkers = ['gnumake']
+  let g:syntastic_gitcommit_checkers = ['language_check']
+  let g:syntastic_python_checkers = ['pyflakes_with_warnings']
+  let g:syntastic_disabled_filetypes=['java']
+  let g:syntastic_javascript_checkers = ['eslint']
+  " }}}
 augroup END
 " }}}
 
+" EditorConfig {{{
+augroup editorconfig_config
+  autocmd!
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+augroup END
+" }}}
+
+" Filetype ----------------------------
 filetype plugin indent on
 
 " JSON {{{
 augroup filetype_json
   autocmd!
-  au BufRead,BufNewFile *.json set ft=json syntax=javascript
+  au BufRead,BufNewFile *.json set ft=json syntax=javascript g:syntastic_javascript_checkers=['json_tool']
 augroup END
 " }}}
 
@@ -350,8 +373,16 @@ augroup filetype_markdown
 augroup END
 " }}}
 
-let g:syntastic_make_checkers = ['gnumake']
-let g:syntastic_javascript_checkers = ['json_tool']
-let g:syntastic_gitcommit_checkers = ['language_check']
-let g:syntastic_python_checkers = ['pyflakes_with_warnings']
-let g:syntastic_disabled_filetypes=['java']
+" XML {{{
+augroup filetype_xml
+  autocmd!
+  au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+augroup END
+" }}}
+
+" ZSH {{{
+augroup filetype_zsh
+  autocmd!
+  au BufRead,BufNewFile .zsh_rc,.functions,.commonrc set ft=zsh
+augroup END
+" }}}

@@ -27,6 +27,7 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'myint/syntastic-extras'
 NeoBundle 'ekalinin/Dockerfile.vim'
+NeoBundle 'bkad/CamelCaseMotion'
 
 call neobundle#end()
 
@@ -111,6 +112,17 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
+
+" Camel case motion mappings
+" Allows for a more intuitive movement
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
 
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 " 0 goes to the first non-blank char
@@ -201,7 +213,7 @@ nmap <leader>w :w!<cr>
 " General {{{
 
 map <leader>vimrc :tabe ~/.vimrc
-autocmd bufwritepost .vimrc source $MYVIMR
+autocmd bufwritepost .vimrc source $MYVIMRC
 
 " Remap :W to :w {{{
 command! W w

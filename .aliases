@@ -63,6 +63,7 @@ alias free_diskspace_report="diskspace_report"
 # Shortcuts
 alias g="git"
 alias gst="git status"
+alias grm="git ls-files --deleted -z | xargs -0 git rm" #removes all removed files from git
 alias v="vim"
 alias ungz="gunzip -k"
 
@@ -81,3 +82,4 @@ alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo 
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "$method"="lwp-request -m '$method'"
 done
+

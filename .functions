@@ -138,3 +138,10 @@ tmux-dev() {
 	tmux select-window -t dev:1
 	tmux select-pane -t 1
 }
+
+evaluate-text() {
+	echo "# Proselint"
+	proselint $1
+	echo "# Language tool"
+	java -jar ~/.bin/LanguageTool-3.2/languagetool-commandline.jar $1
+}

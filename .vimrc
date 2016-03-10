@@ -12,7 +12,9 @@ NeoBundleFetch 'Shougo/neobundle.vim' " Neobundle manages Neobundle
 
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
+"NeoBundle 'tpope/vim-git'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
@@ -27,6 +29,7 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'junegunn/goyo.vim'
 NeoBundle 'myint/syntastic-extras'
 NeoBundle 'ekalinin/Dockerfile.vim'
+"NeoBundle 'jelera/vim-javascript-syntax'
 
 NeoBundle 'chaoren/vim-wordmotion'
 
@@ -60,6 +63,7 @@ set lazyredraw
 set magic " on regular expressions
 set showmatch " matching brackets
 set mat=2 " matching brackets matching blink speed
+set relativenumber " relative numbers
 
 " Syntax highlighting {{{
 " Enable syntax highlighting
@@ -346,11 +350,16 @@ augroup syntastic_config
   set statusline+=%*
 
   " Language checkers {{{
+  let g:syntastic_aggregate_errors = 1
+  let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_make_checkers = ['gnumake']
   let g:syntastic_gitcommit_checkers = ['language_check']
   let g:syntastic_python_checkers = ['pyflakes_with_warnings']
   let g:syntastic_disabled_filetypes=['java']
   let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_text_checkers = ['language-check']
+  let g:syntastic_markdown_checkers = ['language-check']
+  let g:syntastic_plaintex_checkers = ['language-check']
   " }}}
 augroup END
 " }}}
@@ -376,6 +385,7 @@ augroup END
 augroup filetype_markdown
   autocmd!
   let g:markdown_fenced_languages = ['ruby', 'html', 'javascript', 'css', 'erb=eruby.html', 'bash=sh']
+
 augroup END
 " }}}
 

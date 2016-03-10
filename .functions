@@ -128,3 +128,13 @@ docker-ip() {
 bdocker-fix() {
 	boot2docker stop && boot2docker delete && boot2docker init && boot2docker start
 }
+
+tmux-dev() {
+	tmux new-session -s dev -n ide
+	tmux split-window -v -p 10 -t dev
+	tmux select-pane -t 2
+	tmux split-window -h -p 30 -t dev
+	tmux new-window -n shell
+	tmux select-window -t dev:1
+	tmux select-pane -t 1
+}

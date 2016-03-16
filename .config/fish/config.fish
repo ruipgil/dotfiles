@@ -26,6 +26,13 @@ end
 make_completion g 'git'
 make_completion v 'nvim'
 
+function tdev
+    tmux rename-window dev
+    tmux split-window -v -p 20 -t dev
+    tmux select-pane -t 2
+    tmux split-window -h -p 40 -t dev
+end
+
 
 # rbenv
 if test -d $RBENV_ROOT

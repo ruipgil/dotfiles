@@ -1,0 +1,52 @@
+#### COLOUR (Solarized light)
+
+# default statusbar colors
+set-option -g status-bg white #base2
+set-option -g status-fg yellow #yellow
+set-option -g status-attr default
+
+# default window title colors
+set-window-option -g window-status-fg brightyellow #base00
+set-window-option -g window-status-bg default
+#set-window-option -g window-status-attr dim
+
+# active window title colors
+set-window-option -g window-status-current-fg brightred #orange
+set-window-option -g window-status-current-bg default
+#set-window-option -g window-status-current-attr bright
+
+# pane border
+set-option -g pane-border-fg white #base2
+set-option -g pane-active-border-fg brightcyan #base1
+
+# message text
+set-option -g message-bg white #base2
+set-option -g message-fg brightred #orange
+
+# pane number display
+set-option -g display-panes-active-colour blue #blue
+set-option -g display-panes-colour brightred #orange
+
+# clock
+set-window-option -g clock-mode-colour green #green
+
+# bell
+set-window-option -g window-status-bell-style fg=white,bg=red #base2, red
+
+### Separators
+
+tm_separator_left_bold="◀"
+tm_separator_left_thin="❮"
+tm_separator_right_bold="▶"
+tm_separator_right_thin="❯"
+
+set -g status-left-length 32
+set -g status-right-length 150
+set -g status-interval 5
+
+tm_date="#[fg=$tm_color_inactive] %R %d %b"
+tm_host="#[fg=$tm_color_feature,bold]#h"
+tm_session_name="#[fg=$tm_color_feature,bold]$tm_icon #S"
+
+set -g status-left $tm_session_name' '
+set -g status-right $tm_date' '$tm_host

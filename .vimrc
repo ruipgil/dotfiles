@@ -1,6 +1,6 @@
 " Neobundle {{{
+set nocompatible
 if has('vim_starting')
-  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
@@ -9,29 +9,41 @@ endif
 call neobundle#begin(expand('/Users/ruipgil/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim' " Neobundle manages Neobundle
-
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
-"NeoBundle 'tpope/vim-git'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'junegunn/goyo.vim'
-NeoBundle 'myint/syntastic-extras'
-NeoBundle 'ekalinin/Dockerfile.vim'
-"NeoBundle 'jelera/vim-javascript-syntax'
 
+" General
 NeoBundle 'chaoren/vim-wordmotion'
+NeoBundle 'scrooloose/nerdcommenter'
+
+" File navigation
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'scrooloose/nerdtree'
+
+" Colors, and and shapes
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'myint/syntastic-extras'
+NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'edkolev/tmuxline.vim'
+
+NeoBundle 'junegunn/goyo.vim'
+
+" Language specific
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx' " Requires pangloss/vim-javascript
+NeoBundle 'ekalinin/Dockerfile.vim'
+
+" Evaluating
+"NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'tpope/vim-git'
+"NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'tpope/vim-surround'
+"NeoBundle 'godlygeek/tabular'
 
 call neobundle#end()
 
@@ -211,7 +223,7 @@ nmap <leader>w :w!<cr>
 " General {{{
 
 map <leader>vimrc :tabe ~/.vimrc
-autocmd bufwritepost .vimrc source $MYVIMRC
+autocmd bufwritepost ~/.vimrc source $MYVIMRC | AirlineRefresh
 
 " Remap :W to :w {{{
 command! W w
@@ -325,7 +337,7 @@ augroup END
 " Plugins settings -------------------------------------------------------------
 
 " Airline.vim {{{
-augroup airline_config
+augroup AirlineConfig
   autocmd!
   let g:airline_powerline_fonts = 1
   let g:airline#extensions#syntastic#enabled = 1
@@ -339,8 +351,6 @@ augroup END
 
 
 " Syntastic.vim {{{
-augroup syntastic_config
-  autocmd!
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
   let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
@@ -357,11 +367,10 @@ augroup syntastic_config
   let g:syntastic_python_checkers = ['pyflakes_with_warnings']
   let g:syntastic_disabled_filetypes=['java']
   let g:syntastic_javascript_checkers = ['eslint']
-  let g:syntastic_text_checkers = ['language-check']
-  let g:syntastic_markdown_checkers = ['language-check']
-  let g:syntastic_plaintex_checkers = ['language-check']
+  "let g:syntastic_text_checkers = ['language-check']
+  "let g:syntastic_markdown_checkers = ['language-check']
+  "let g:syntastic_plaintex_checkers = ['language-check']
   " }}}
-augroup END
 " }}}
 
 " EditorConfig {{{
@@ -393,6 +402,13 @@ augroup END
 augroup filetype_xml
   autocmd!
   au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+augroup END
+" }}}
+
+" Fish {{{
+augroup filetype_fish
+  autocmd!
+  au BufRead,BufNewFile *.fish set ft=sh
 augroup END
 " }}}
 

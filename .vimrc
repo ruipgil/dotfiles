@@ -44,6 +44,7 @@ NeoBundle 'tpope/vim-git'
 "NeoBundle 'tpope/vim-fugitive'
 "NeoBundle 'tpope/vim-surround'
 "NeoBundle 'godlygeek/tabular'
+NeoBundle 'qpkorr/vim-bufkill'
 
 call neobundle#end()
 
@@ -85,7 +86,9 @@ set background=light
 colorscheme solarized
 " }}}
 
-set encoding=utf8
+if has('vim_starting')
+  set encoding=utf8
+endif
 set ffs=unix,dos,mac " Unix as the standard file type
 
 " Local directories {{{
@@ -169,10 +172,15 @@ map <c-space> ?
 map <silent> <leader><cr> :noh<cr> " Disable highlight when <leader><cr> is pressed
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+if has('nvim')
+  " NeoVim is bugged when it comes to C-h remapping
+  nnoremap <BS> <C-W>h
+else
+  nnoremap <C-h> <C-W>h
+endif
+nnoremap <C-l> <C-W>l
 map <leader>bd :Bclose<cr> " Close the current buffer
 map <leader>ba :bufdo bd<cr> " Close all the buffers
 

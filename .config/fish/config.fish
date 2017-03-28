@@ -3,13 +3,17 @@ set -g -x PATH ~/bin $PATH
 
 source ~/.config/fish/aliases.fish
 
-set -x GOPATH = ~/golang
+set -x GOPATH $HOME/golang
 set -x EDITOR nvim
 set -x VISUAL nvim
 set -x LC_ALL en_US.UTF-8
 set -x LANG en_US.UTF-8
 set -x RBENV_ROOT /usr/local/var/rbenv
 set -x RBXOPT -X19
+
+set FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
+set -g -x PATH $GOPATH/bin $PATH
 
 # Completions
 function make_completion --argument-names alias command
@@ -27,10 +31,19 @@ make_completion g 'git'
 make_completion v 'nvim'
 
 function tdev
-    tmux rename-window dev
-    tmux split-window -v -p 20 -t dev
+    read -l -p tdev-ask name
+    switch $name
+        case ''
+          set name "dev"
+    end
+    tmux rename-window $name
+    tmux split-window -v -p 20 -t $name
     tmux select-pane -t 2
-    tmux split-window -h -p 40 -t dev
+    tmux split-window -h -p 40 -t $name
+end
+
+function tdev-ask
+    echo "What's the name of the window? (dev)"
 end
 
 
@@ -42,3 +55,8 @@ if test -d $RBENV_ROOT
 end
 # THEME PURE #
 set fish_function_path /Users/ruipgil/.config/fish/functions/theme-pure $fish_function_path
+
+# eval (python -m virtualfish)
+
+eval (thefuck --alias | tr '
+' ';')

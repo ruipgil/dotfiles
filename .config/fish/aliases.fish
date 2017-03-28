@@ -53,7 +53,7 @@ alias g="git"
 alias gst="git status"
 alias v="nvim"
 alias ungz="gunzip -k"
-
+alias grm="git ls-files --deleted -z | xargs -0 git rm" #removes all removed files from git
 # File size
 alias fs="stat -f \"%z bytes\""
 

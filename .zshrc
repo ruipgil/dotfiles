@@ -58,3 +58,6 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # Load default dotfiles
 source ~/.bash_profile
 
+
+# added by travis gem
+[ -f /Users/ruipgil/.travis/travis.sh ] && source /Users/ruipgil/.travis/travis.sh

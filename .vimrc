@@ -6,7 +6,7 @@ endif
 
  " execute pathogen#infect()
 
-call neobundle#begin(expand('/Users/ruipgil/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim' " Neobundle manages Neobundle
 NeoBundle 'Shougo/neosnippet.vim'
@@ -116,6 +116,7 @@ set relativenumber " relative numbers
 syntax enable
 set t_Co=256
 set background=dark
+colorscheme solarized
 " colorscheme onehalfdark
 " }}}
 
@@ -125,9 +126,9 @@ endif
 set ffs=unix,dos,mac " Unix as the standard file type
 
 " Local directories {{{
-" set backupdir=~/.vim/backups
+set backupdir=~/.vim/backups
 " set directory=~/.vim/swaps
-" set undodir=~/.vim/undo
+set undodir=~/.vim/undo
 " }}}
 
 set smarttab
@@ -464,6 +465,13 @@ augroup END
   "let g:syntastic_plaintex_checkers = ['language-check']
   " }}}
 " }}}
+
+function CenterPane()
+  lefta vnew
+  wincmd w
+  exec 'vertical resize '. string(&columns * 0.75)
+endfunction
+nnoremap <leader>c :call CenterPane()<cr>
 
 " EditorConfig {{{
 augroup editorconfig_config

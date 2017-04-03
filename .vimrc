@@ -545,3 +545,6 @@ endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)

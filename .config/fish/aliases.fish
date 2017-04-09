@@ -11,6 +11,7 @@ function c        ; pygmentize -O style=monokai -f console256 -g $argv ; end
 function g        ; git $argv ; end
 function grep     ; command grep --color=auto $argv ; end
 function localip  ; ipconfig getifaddr en0 ; end
+function venv     ; source venv/bin/activate.fish; end
 
 
 
@@ -52,6 +53,7 @@ alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
 alias g="git"
 alias gst="git status"
 alias v="nvim"
+alias ipy="ipython"
 alias ungz="gunzip -k"
 alias grm="git ls-files --deleted -z | xargs -0 git rm" #removes all removed files from git
 # File size

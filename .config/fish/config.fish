@@ -13,7 +13,9 @@ set -x RBXOPT -X19
 
 set FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
-set -g -x PATH $GOPATH/bin $PATH
+if test -d $GOPATH
+    set -g -x PATH $GOPATH/bin $PATH
+end
 
 # Completions
 function make_completion --argument-names alias command
@@ -54,9 +56,5 @@ if test -d $RBENV_ROOT
   rbenv rehash >/dev/null ^&1
 end
 # THEME PURE #
-set fish_function_path /Users/ruipgil/.config/fish/functions/theme-pure $fish_function_path
+set fish_function_path $HOME/.config/fish/functions/theme-pure $fish_function_path
 
-# eval (python -m virtualfish)
-
-eval (thefuck --alias | tr '
-' ';')

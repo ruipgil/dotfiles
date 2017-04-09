@@ -576,3 +576,5 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 "" Key binding for yapf
 :nnoremap <leader>y :Yapf<cr>
 
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)

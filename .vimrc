@@ -60,7 +60,8 @@ NeoBundle 'tpope/vim-surround'
 " NeoBundle 'godlygeek/tabular'
 NeoBundle 'kballard/vim-swift', { 'filetypes': 'swift', 'unite_sources': ['swift/device', 'swift/developer_dir'] }
 "NeoBundle 'shougo/unite.vim'
-"NeoBundle 'Shougo/deoplete.nvim'
+NeoBundle 'Shougo/deoplete.nvim'
+let g:deoplete#enable_at_startup = 1
 NeoBundle 'majutsushi/tagbar'
 " NeoBundle 'elzr/vim-json'
 " NeoBundle 'christoomey/vim-sort-motion'
@@ -69,17 +70,35 @@ NeoBundle 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'Yggdroot/indentLine'
 
+NeoBundle 'mindriot101/vim-yapf'
+NeoBundle 'fatih/vim-go'
+
 " let g:neomake_python_pylint_maker = {
 "   \ 'args': ['--verbose'],
 "   \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
 "   \ }
-let g:neomake_python_enabled_makers = ['pylint']
+" let g:neomake_python_enabled_makers = ['pylint']
+let g:neomake_python_enabled_makers = ['pep8']
 let g:neomake_javascript_enabled_makers = ['eslint']
 
 autocmd! BufWritePost,BufEnter  * Neomake
 
 
 call neobundle#end()
+
+
+function TabToggle()
+  if &expandtab
+    set shiftwidth=8
+    set softtabstop=0
+    set noexpandtab
+  else
+    set shiftwidth=4
+    set softtabstop=4
+    set expandtab
+  endif
+endfunction
+
 
 filetype plugin indent on
 
@@ -553,3 +572,7 @@ endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+"" Key binding for yapf
+:nnoremap <leader>y :Yapf<cr>
+

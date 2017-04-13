@@ -28,3 +28,5 @@ Thumbs.db
 # fish shell
 fishd.*
 .config/fish/fish_history
+.config/fish/completions/
+.config/fisherman/

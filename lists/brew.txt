@@ -1,0 +1,13 @@
+ansible
+diff-so-fancy
+fish
+git
+htop
+mongodb
+neovim/neovim/neovim
+python
+reattach-to-user-namespace
+redis
+ripgrep
+tmux
+tree

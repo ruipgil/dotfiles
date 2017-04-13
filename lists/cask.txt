@@ -1,0 +1,11 @@
+1password
+alfred
+dropbox
+flux
+google-chrome
+iterm2-borderless
+ngrok
+robomongo
+slack
+spectacle
+vlc

@@ -1,0 +1,1 @@
+/Users/ruigil/.config/fisherman/pure/__format_time.fish

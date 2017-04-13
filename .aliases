@@ -5,17 +5,15 @@ alias cd..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
-alias -- -="cd -"
+alias l="tree --dirsfirst -aFCNL 1"
+alias ll="tree --dirsfirst -ChFupDaLg 1"
 
-# mv, rm, cp
-alias mv='mv -v'
-alias rm='rm -i -v'
-alias cp='cp -v'
+alias changeshell="chsh -s $(brew --prefix)/bin/"
 
 alias cask='brew cask'
 alias where=which
 alias brwe=brew
+alias ipy="ipython"
 
 alias hosts='sudo $EDITOR /etc/hosts'
 alias undopush="git push -f origin HEAD^:master"
@@ -24,18 +22,12 @@ alias undopush="git push -f origin HEAD^:master"
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dig="dig +nocmd any +multiline +noall +answer"
 
-# Recursively delete `.DS_Store` files
-alias cleanup_dsstore="find . -name '*.DS_Store' -type f -ls -delete"
-
-alias diskspace_report="df -P -kHl"
-alias free_diskspace_report="diskspace_report"
-
 # Shortcuts
 alias g="git"
 alias gst="git status"
-alias grm="git ls-files --deleted -z | xargs -0 git rm" #removes all removed files from git
+#removes all removed files from git
+alias grm="git ls-files --deleted -z | xargs -0 git rm"
 alias v="nvim"
-alias ungz="gunzip -k"
 
 # File size
 alias fs="stat -f \"%z bytes\""

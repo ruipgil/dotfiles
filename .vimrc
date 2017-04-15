@@ -146,7 +146,7 @@ set ffs=unix,dos,mac " Unix as the standard file type
 
 " Local directories {{{
 set backupdir=~/.vim/backups
-" set directory=~/.vim/swaps
+set directory=~/.vim/swaps
 set undodir=~/.vim/undo
 " }}}
 

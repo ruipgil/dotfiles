@@ -34,3 +34,10 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 #export RBENV_ROOT=/usr/local/var/rbenv
 #if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Prevent installing pip packages without virtualenv
+# Use gpip to force installation
+export PIP_REQUIRE_VIRTUALENV=true
+alias gpip="env PIP_REQUIRE_VIRTUALENV=false pip"
+alias gpip2="env PIP_REQUIRE_VIRTUALENV=false pip2"
+alias gpip3="env PIP_REQUIRE_VIRTUALENV=false pip3"

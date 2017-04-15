@@ -32,6 +32,7 @@ alias v="nvim"
 # File size
 alias fs="stat -f \"%z bytes\""
 
+alias venv="source venv/bin/activate"
 
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
 alias brew_update="brew -v update; brew -v upgrade --all; brew cleanup; brew cask cleanup; brew prune; brew doctor"

@@ -1,0 +1,1 @@
+/Users/ruigil/.config/fisherman/z/functions/z.awk

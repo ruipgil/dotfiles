@@ -44,3 +44,11 @@ alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo 
 	#alias "$method"="lwp-request -m '$method'"
 #done
 
+alias rm="trash"
+
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+
+alias gpip="env PIP_REQUIRE_VIRTUALENV=false pip"
+alias gpip2="env PIP_REQUIRE_VIRTUALENV=false pip2"
+alias gpip3="env PIP_REQUIRE_VIRTUALENV=false pip3"

@@ -1,6 +1,6 @@
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/go/bin
-#export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+# export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 export GOPATH=$HOME/golang
 
 # vim as default
@@ -19,11 +19,11 @@ export LANG="en_US"
 export RBENV_ROOT=/usr/local/var/rbenv
 export RBXOPT="-X19"
 
-if [ -d "$RBENV_ROOT" ]; then
-  export PATH=$PATH:$RBENV_ROOT/bin
-  export PATH=$PATH:$RBENV_ROOT/shims
-  rbenv rehash >/dev/null ^&1
-fi
+# if [ -d "$RBENV_ROOT" ]; then
+#   export PATH=$PATH:$RBENV_ROOT/bin
+#   export PATH=$PATH:$RBENV_ROOT/shims
+#   rbenv rehash >/dev/null ^&1
+# fi
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
@@ -40,3 +40,14 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export PIP_REQUIRE_VIRTUALENV=true
 
 # . /usr/local/etc/profile.d/z.sh
+
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
+export AUTO_VENV_PREFERRED='venv3,venv,.venv'
+
+eval "$(direnv hook bash)"

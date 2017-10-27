@@ -22,13 +22,6 @@ alias undopush="git push -f origin HEAD^:master"
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias dig="dig +nocmd any +multiline +noall +answer"
 
-# Shortcuts
-alias g="git"
-alias gst="git status"
-#removes all removed files from git
-alias grm="git ls-files --deleted -z | xargs -0 git rm"
-alias v="nvim"
-
 # File size
 alias fs="stat -f \"%z bytes\""
 
@@ -52,3 +45,9 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias gpip="env PIP_REQUIRE_VIRTUALENV=false pip"
 alias gpip2="env PIP_REQUIRE_VIRTUALENV=false pip2"
 alias gpip3="env PIP_REQUIRE_VIRTUALENV=false pip3"
+
+# Use 'rand -base64 32'
+# Use 'rand -hex 32'
+alias rand="openssl rand"
+
+alias json="python -m json.tool"

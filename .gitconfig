@@ -17,23 +17,24 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	# insanely beautiful diffs
-	pager = diff-highlight | diff-so-fancy | less -r
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 # so much color
-#[color]
-#	ui = always
-#[color "diff"]
-#	meta = yellow bold
-#	commit = green bold
-#	frag = magenta bold
-#	old = red bold
-#	new = green bold
-#	whitespace = red reverse
-#[color "diff-highlight"]
-#	oldNormal = red bold
-#	oldHighlight = "red bold 52"
-#	newNormal = "green bold"
-#	newHighlight = "green bold 22"
+# [color]
+# 	ui = true
+# [color "diff"]
+# 	meta = 227
+# 	commit = 227 bold
+# 	frag = magenta bold
+# 	old = red bold
+# 	new = green bold
+# 	whitespace = red reverse
+# [color "diff-highlight"]
+# 	oldNormal = red bold
+# 	oldHighlight = "red bold 52"
+# 	newNormal = "green bold"
+# 	newHighlight = "green bold 22"
+#
 #[color "branch"]
 #	current = yellow reverse
 #	local = yellow
@@ -81,3 +82,6 @@
 
 #[init]
 #	templatedir = ~/.git_template
+[user]
+	name = Rui Gil
+	email = ruipgil@users.noreply.github.com

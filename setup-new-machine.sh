@@ -12,10 +12,17 @@ echo "Installing casks"
 echo "Setuping up brew services"
 # xargs brew cask install < services-list.txt
 
-# TODO install python
-# TODO install neovim via python
-# TODO install python deps
-# TODO set pip only
+echo "Setting up python and npm packages"
+gpip3 install neovim
+gpip install virtualenv
+gpip install ipython
+
+# Type `git open` to open the GitHub page or website for a repository.
+npm install -g git-open
+# sexy git diffs
+npm install -g diff-so-fancy
+# trash as the safe `rm` alternative
+npm install -g trash-cli
 
 echo "Changing shell"
 #chsh -s /usr/local/bin/fish

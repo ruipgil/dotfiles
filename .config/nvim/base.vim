@@ -79,7 +79,7 @@ set wrapscan " Searches wrap around end of file
 set splitbelow
 set splitright
 
-map <leader>ss :setlocal spell!<cr> " toggle spell checking
+" map <leader>ss :setlocal spell!<cr> " toggle spell checking
 
 " Shortcuts using <leader>
 map <leader>sn ]s

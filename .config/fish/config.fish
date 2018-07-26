@@ -14,11 +14,14 @@ abbr -a grm git ls-files --deleted -z | xargs -0 git rm
 abbr -a fix git feature -a fix
 abbr -a push git push
 abbr -a pull git pull
+abbr -a chore git chore
 abbr -a check git checkout
 abbr -a amend git commit --amend
 abbr -a rebase rebase
 abbr -a commit git commit -m
 abbr -a branch git branch
+abbr -a feature git feature
+abbr -a pullom git pull origin master
 
 abbr -a tree tree -I "'node_modules|bin|lib|include'"
 
@@ -65,4 +68,22 @@ end
 function cd --wraps cd -d "Cds into a directory and executes ls"
   builtin cd $argv
   ls -a
+end
+set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/opt/gnu-getopt/bin" $fish_user_paths
+
+
+function kshell
+  for option in $argv
+    switch "$option"
+      case -p --production
+        kubectx aws-prd
+      case -s --staging
+        kubectx aws-stg
+    end
+  end
+  set name $argv[1]
+  set podname (kubectl get pods | grep "$name-[^-]\+-[^-]\+-[^-]\+ " | head -n 1 | cut -d ' ' -f 1)
+  kubectl exec -it $podname -- python manage.py shell_plus
 end

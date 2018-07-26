@@ -32,6 +32,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'taohex/lightline-buffer'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'edkolev/tmuxline.vim'
 NeoBundle 'christoomey/vim-tmux-navigator'
@@ -50,7 +51,6 @@ NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'rbgrouleff/bclose.vim'
 
 NeoBundle 'w0rp/ale'
-
 NeoBundle 'maximbaz/lightline-ale'
 
 " 100+ filetype support
@@ -59,6 +59,21 @@ NeoBundle 'sheerun/vim-polyglot'
 NeoBundle 'tpope/vim-repeat'
 " Detects tabs/spaces. Finally!
 NeoBundle 'tpope/vim-sleuth'
+
+" TAB for completions
+NeoBundle 'ervandew/supertab'
+" Better start window
+NeoBundle 'mhinz/vim-startify'
+" Move around like a pro
+NeoBundle 'easymotion/vim-easymotion'
+
+NeoBundle 'prabirshrestha/async.vim'
+NeoBundle 'prabirshrestha/vim-lsp'
+
+autocmd FileType typescript setlocal omnifunc=lsp#complete
+
+NeoBundle 'prabirshrestha/asyncomplete.vim'
+NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
 
 call neobundle#end()
 

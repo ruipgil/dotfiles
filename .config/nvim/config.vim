@@ -43,7 +43,7 @@ function! StripWhitespace () " {{{
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction " }}}
-noremap <leader>ss :call StripWhitespace ()<CR>
+" noremap <leader>ss :call StripWhitespace ()<CR>
 " }}}
 
 function! VisualSelection(direction, extra_filter) range
@@ -133,3 +133,10 @@ set grepprg=rg\ --vimgrep
 " TODO vimrc as a dynamic var
 command Vimrc e ~/.vimrc
 command Vsource source ~/.vimrc
+
+" Ctrl-p/n on command line behaves like up/down
+cnoremap <c-n>  <down>
+cnoremap <c-p>  <up>
+
+highlight ColorColumn guibg=red
+set colorcolumn=80,120

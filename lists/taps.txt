@@ -1,5 +1,5 @@
 alehouse/unofficial
-caskroom/cask
+homebrew/cask
 homebrew/core
 homebrew/services
 neovim/neovim

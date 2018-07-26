@@ -1,3 +1,4 @@
-postgresql
-redis
+gitlab-runner
+ipfs
 mongodb
+redis

@@ -1,5 +1,5 @@
 export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:/usr/local/go/bin
+# export PATH=$PATH:/usr/local/go/bin
 # export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 export GOPATH=$HOME/golang
 

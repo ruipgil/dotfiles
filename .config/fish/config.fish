@@ -1,8 +1,11 @@
 bass source ~/.exports
-bass source ~/.aliases
+# bass source ~/.aliases
 
 alias reload=". ~/.config/fish/config.fish"
 alias venv "source venv/bin/activate.fish"
+alias vim "nvim"
+
+abbr -a tmux tmux -f ~/.config/tmux/config.tmux
 
 abbr -a g git
 abbr -a gd git diff
@@ -14,11 +17,12 @@ abbr -a grm git ls-files --deleted -z | xargs -0 git rm
 abbr -a fix git feature -a fix
 abbr -a push git push
 abbr -a pull git pull
+abbr -a clone git clone
 abbr -a chore git chore
 abbr -a check git checkout
 abbr -a amend git commit --amend
 abbr -a rebase rebase
-abbr -a commit git commit -m
+abbr -a commit git commit -m \"
 abbr -a branch git branch
 abbr -a feature git feature
 abbr -a pullom git pull origin master
@@ -31,6 +35,20 @@ abbr -a p python
 abbr -a dj python manage.py
 abbr -a ipy ipython
 
+abbr -a run pipenv run
+abbr -a rundj pipenv run python manage.py
+abbr -a runrun pipenv run python manage.py runserver
+abbr -a runshell pipenv run python manage.py shell
+
+# k8s
+abbr -a k kubectl
+abbr -a kx kubectx
+abbr -a ke kubectl exec
+abbr -a gp kubectl get pods
+
+abbr -a getpods kubectl get pods
+abbr -a deletepod kubectl delete pod
+abbr -a describepod kubectl describe pod
 
 function killf
   if ps -ef | sed 1d | fzf -m | awk '{print $2}' > $TMPDIR/fzf.result

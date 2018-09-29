@@ -38,7 +38,7 @@ NeoBundle 'edkolev/tmuxline.vim'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'Yggdroot/indentLine'
 
-NeoBundle 'junegunn/goyo.vim'
+" NeoBundle 'junegunn/goyo.vim'
 
 " Evaluating
 NeoBundle 'tpope/vim-fugitive'

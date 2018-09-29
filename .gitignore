@@ -27,6 +27,12 @@ Thumbs.db
 
 # fish shell
 fishd.*
+
+.config/*
+!.config/fish
+!.config/tmux
+!.config/nvim
+!.config/alacritty
 .config/fish/fish_history
 .config/fish/completions/
 .config/fisherman/

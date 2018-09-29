@@ -35,7 +35,7 @@ echo "Setuping up dotfiles"
 
 echo "Setting iterm2 preferences"
 # TODO should set location of dotfiles first
-defaults import $(pwd)/com.googlecode.iterm2.plist
+# defaults import $(pwd)/com.googlecode.iterm2.plist
 
 echo "Installing fonts"
 cp fonts/*.ttf /Library/Fonts

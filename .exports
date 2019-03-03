@@ -37,7 +37,8 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # Prevent installing pip packages without virtualenv
 # Use gpip to force installation
-export PIP_REQUIRE_VIRTUALENV=true
+#
+export PIP_REQUIRE_VIRTUALENV=false
 
 # . /usr/local/etc/profile.d/z.sh
 
@@ -51,3 +52,5 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 export AUTO_VENV_PREFERRED='venv3,venv,.venv'
 
 eval "$(direnv hook bash)"
+
+source ~/.exports.local

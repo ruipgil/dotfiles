@@ -4,6 +4,7 @@ bass source ~/.exports
 alias reload=". ~/.config/fish/config.fish"
 alias venv "source venv/bin/activate.fish"
 alias vim "nvim"
+alias ls "exa"
 
 abbr -a note $EDITOR ~/notes/(date +%Y-%M-%d).txt
 

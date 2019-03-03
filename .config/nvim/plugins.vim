@@ -70,6 +70,9 @@ NeoBundle 'easymotion/vim-easymotion'
 NeoBundle 'prabirshrestha/async.vim'
 NeoBundle 'prabirshrestha/vim-lsp'
 
+NeoBundle 'mhinz/vim-mix-format'
+NeoBundle 'slashmili/alchemist.vim'
+
 autocmd FileType typescript setlocal omnifunc=lsp#complete
 
 NeoBundle 'prabirshrestha/asyncomplete.vim'

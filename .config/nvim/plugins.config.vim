@@ -173,3 +173,7 @@ map <leader>u :LspReferences<Enter>
 " vim-commentary {{{
 autocmd FileType gitconfig setlocal commentstring=#\ %s
 " }}}
+
+let g:mix_format_on_save = 1
+let g:alchemist_tag_map = "<leader>d"
+let g:alchemist_tag_stack_map = "<leader>t"

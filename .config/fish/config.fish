@@ -5,6 +5,8 @@ alias reload=". ~/.config/fish/config.fish"
 alias venv "source venv/bin/activate.fish"
 alias vim "nvim"
 
+abbr -a note $EDITOR ~/notes/(date +%Y-%M-%d).txt
+
 abbr -a tmux tmux -f ~/.config/tmux/config.tmux
 
 abbr -a g git
@@ -104,4 +106,9 @@ function kshell
   set name $argv[1]
   set podname (kubectl get pods | grep "$name-[^-]\+-[^-]\+-[^-]\+ " | head -n 1 | cut -d ' ' -f 1)
   kubectl exec -it $podname -- python manage.py shell_plus
+end
+
+function origin
+  git pull origin $argv[1]
+  git checkout $argv[1]
 end

@@ -1,1 +1,0 @@
-/Users/ruigil/.config/fisherman/getopts/getopts.fish

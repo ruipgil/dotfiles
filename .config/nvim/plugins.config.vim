@@ -134,7 +134,7 @@ let g:ale_lint_on_enter = 1
 let g:ale_virtualenv_dir_names = ['venv', 'venv3', 'venv2', 'venv-gu']
 
 let g:ale_linters = {
-\   'python': ['pylint', 'pyls'],
+\   'python': ['pylint', 'pyls', 'mypy'],
 \   'javascript': ['eslint'],
 \}
 let g:ale_python_pylint_options = ''
@@ -177,3 +177,9 @@ autocmd FileType gitconfig setlocal commentstring=#\ %s
 let g:mix_format_on_save = 1
 let g:alchemist_tag_map = "<leader>d"
 let g:alchemist_tag_stack_map = "<leader>t"
+
+" Runs black on save
+" autocmd BufWritePre *.py execute ':Black'
+
+
+set statusline^=%{coc#status()}

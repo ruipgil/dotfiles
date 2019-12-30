@@ -65,7 +65,7 @@ bind -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iq v
 bind -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys 'C-\\') || tmux select-pane -l"
 
 # reload config file
-bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
+bind r source-file ~/.config/tmux/config.tmux \; display "Config Reloaded!"
 
 # # quickly open a new window
 bind N new-window
@@ -192,7 +192,7 @@ set -g status-bg colour234
 set -g status-fg colour137
 set -g status-attr dim
 set -g status-left ''
-set -g status-right '#[fg=colour233,bg=colour241,bold] %d/%m #[fg=colour233,bg=colour245,bold] %H:%M:%S '
+# set -g status-right '#(sh ~/.config/tmux/next-appointment.sh) #[fg=colour233,bg=colour241,bold] %d/%m #[fg=colour233,bg=colour245,bold] %H:%M:%S '
 set -g status-right-length 50
 set -g status-left-length 20
 

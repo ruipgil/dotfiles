@@ -1,12 +1,13 @@
-bass source ~/.exports
+# bass source ~/.exports
 # bass source ~/.aliases
 
 alias reload=". ~/.config/fish/config.fish"
 alias venv "source venv/bin/activate.fish"
 alias vim "nvim"
 alias ls "exa"
+alias poetry="python3 $HOME/.poetry/bin/poetry"
 
-abbr -a note $EDITOR ~/notes/(date +%Y-%M-%d).txt
+abbr -a note $EDITOR ~/notes/(date +%Y-%m-%d).txt
 
 abbr -a tmux tmux -f ~/.config/tmux/config.tmux
 
@@ -110,6 +111,6 @@ function kshell
 end
 
 function origin
-  git pull origin $argv[1]
+  git fetch origin $argv[1]
   git checkout $argv[1]
 end

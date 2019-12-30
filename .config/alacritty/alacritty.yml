@@ -50,6 +50,9 @@ colors:
 cursor:
     style: Beam
 
+# Because of pt-pt keyboard
+alt_send_esc: false
+
 key_bindings:
   - { key: Space, mods: Control, chars: "\x00" }
   - { key: Grave,    mods: Alt,       chars: "\x1b`"                       } # Alt + `

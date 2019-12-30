@@ -1,0 +1,6 @@
+{
+	"python.linting.mypyEnabled": true,
+	"python.formatting.provider": "black",
+	"coc.preferences.formatOnSaveFiletypes": ["python"]
+
+}

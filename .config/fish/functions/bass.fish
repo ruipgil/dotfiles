@@ -1,1 +1,0 @@
-/Users/ruigil/.config/fisherman/bass/functions/bass.fish

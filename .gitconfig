@@ -1,87 +1,64 @@
+[user]
+	name = Rui Gil
+	email = rui@remote.com
+[push]
+	default = current
+
 [alias]
-	c = commit -am
-	up = pull
-	p = push
-	s = status -s
-	sclone = clone --depth=1
-	co = checkout
-	df = diff --color --color-words --abbrev
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	# already provided by git-extras
+	# undo = reset HEAD~1 --mixed
+	unadd = !git reset --hard
+	fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
 
-	# Show the diff between the latest commit and the current state
-	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-
-	reup = rebase-update # depot_tools specific
-
-[core]
-	excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
-	# insanely beautiful diffs
-	pager = diff-so-fancy | less --tabs=4 -RFX
-
-# so much color
+# [core]
+# 	pager = diff-so-fancy | less --tabs=4 -RFX
+# [interactive]
+# 	diffFilter = diff-so-fancy --patch
 # [color]
 # 	ui = true
+# [color "diff-highlight"]
+# 	oldNormal = red bold
+# 	oldHighlight = red bold 52
+# 	newNormal = green bold
+# 	newHighlight = green bold 22
 # [color "diff"]
-# 	meta = 227
-# 	commit = 227 bold
+# 	meta = 11
 # 	frag = magenta bold
+# 	func = 146 bold
+# 	commit = yellow bold
 # 	old = red bold
 # 	new = green bold
 # 	whitespace = red reverse
-# [color "diff-highlight"]
-# 	oldNormal = red bold
-# 	oldHighlight = "red bold 52"
-# 	newNormal = "green bold"
-# 	newHighlight = "green bold 22"
-#
-#[color "branch"]
-#	current = yellow reverse
-#	local = yellow
-#	remote = green
-#[color "status"]
-#	added = yellow
-#	changed = green
-#	untracked = cyan
 
-# git mergetool
-#[merge]
-#	tool = opendiff
+[core]
+    pager = delta
 
-# rewrites of repo paths
-[url "git@github.com:"]
-	insteadOf = "gh:"
-	insteadOf = "git://github.com"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
-    pushInsteadOf = "https://github.com/"
-[url "git@gitlab.com:"]
-	insteadOf = "gl:"
-	insteadOf = "git://gitlab.com"
-	pushInsteadOf = "gitlab:"
-	pushInsteadOf = "git://gitlab.com/"
-    pushInsteadOf = "https://gitlab.com/"
-[url "git@gist.github.com:"]
-	insteadOf = "gst:"
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
-	pushInsteadOf = "https://gist.github.com/"
+[interactive]
+    diffFilter = delta --color-only
 
-# correct typos
-[help]
-	autocorrect = 1
+[delta]
+    navigate = true  # use n and N to move between diff sections
 
-# push easily. http://stackoverflow.com/a/23918418/89484
-[push]
-	default = current
-	followTags = true
+[merge]
+    conflictstyle = diff3
 
-# use separate file for username / github token / etc
-[include]
-  path = ~/.gitconfig.local
+[diff]
+    colorMoved = default
+	external = difft
 
-#[init]
-#	templatedir = ~/.git_template
-[user]
-	name = Rui Gil
-	email = ruipgil@users.noreply.github.com
+[color]
+	ui = true
+
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse

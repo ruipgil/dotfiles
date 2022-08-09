@@ -1,20 +1,29 @@
-# bass source ~/.exports
-# bass source ~/.aliases
+/opt/homebrew/bin/brew shellenv | source
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
+starship init fish | source
+
+fish_add_path -g /opt/homebrew/opt/curl/bin
+fish_add_path -g /Applications/Postgres.app/Contents/Versions/latest/bin
+
+set -g -x EDITOR "nvim"
+set -g -x ERL_AFLAGS "-kernel shell_history enabled"
+set -g -x FZF_DEFAULT_COMMAND 'ag -g ""'
+set -g -x VISUAL "nvim"
+
 
 alias reload=". ~/.config/fish/config.fish"
-alias venv "source venv/bin/activate.fish"
-alias vim "nvim"
-alias ls "exa"
-alias poetry="python3 $HOME/.poetry/bin/poetry"
 
-abbr -a note $EDITOR ~/notes/(date +%Y-%m-%d).txt
+# file manipulation
+abbr -a v nvim
+abbr -a vim nvim
+abbr -a cat bat
 
-abbr -a tmux tmux -f ~/.config/tmux/config.tmux
-
+# git
 abbr -a g git
 abbr -a gd git diff
 abbr -a gs git status --short
 abbr -a add git add
+abbr -a addu git add -u
 abbr -a gst git status
 abbr -a gds git diff --staged
 abbr -a grm git ls-files --deleted -z | xargs -0 git rm
@@ -27,22 +36,27 @@ abbr -a check git checkout
 abbr -a amend git commit --amend
 abbr -a rebase rebase
 abbr -a commit git commit -m \"
-abbr -a branch git branch
+abbr -a branch git create-branch
 abbr -a feature git feature
 abbr -a pullom git pull origin master
 
-abbr -a tree tree -I "'node_modules|bin|lib|include'"
+function origin
+  git fetch origin $argv[1]
+  git checkout $argv[1]
+end
 
-abbr -a v nvim
-
-abbr -a p python
-abbr -a dj python manage.py
-abbr -a ipy ipython
-
-abbr -a run pipenv run
-abbr -a rundj pipenv run python manage.py
-abbr -a runrun pipenv run python manage.py runserver
-abbr -a runshell pipenv run python manage.py shell
+function downloadpage
+  wget \
+      --recursive \
+      --level=5 \
+      --convert-links \
+      --page-requisites \
+      --wait=1 \
+      --random-wait \
+      --timestamping \
+      --no-parent \
+      $argv
+end
 
 # k8s
 abbr -a k kubectl
@@ -50,67 +64,22 @@ abbr -a kx kubectx
 abbr -a ke kubectl exec
 abbr -a gp kubectl get pods
 
-abbr -a getpods kubectl get pods
-abbr -a deletepod kubectl delete pod
-abbr -a describepod kubectl describe pod
+# elixir
+abbr -a mx mix
+abbr -a mxi iex -S mix
+abbr -a mxs mix phx.server
+abbr -a mxt mix test
+abbr -a mxc mix compile
+abbr -a mxem mix ecto.migrate
+abbr -a mxd mix deps.get
+abbr -a mxl mix lint
 
-function killf
-  if ps -ef | sed 1d | fzf -m | awk '{print $2}' > $TMPDIR/fzf.result
-    kill -9 (cat $TMPDIR/fzf.result)
-  end
-end
+fzf_key_bindings
 
+set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@3/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@3/include"
+set -gx KERL_CONFIGURE_OPTIONS "--disable-debug --disable-silent-rules --without-javac"
 
-function clone --description "clone something, cd into it. install it."
-    git clone --depth=1 $argv[1]
-    cd (basename $argv[1] | sed 's/.git$//')
-    yarn install
-end
+fish_add_path /opt/homebrew/opt/openssl@3/bin
 
-
-function md --wraps mkdir -d "Create a directory and cd into it"
-  command mkdir -p $argv
-  if test $status = 0
-    switch $argv[(count $argv)]
-      case '-*'
-      case '*'
-        cd $argv[(count $argv)]
-        return
-    end
-  end
-end
-
-
-# function ls --wraps cd -d "Ls"
-#   exa -s name --group-directories-first $argv
-#   # builtin ls $argv
-# end
-
-
-function cd --wraps cd -d "Cds into a directory and executes ls"
-  builtin cd $argv
-  ls -a
-end
-set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/curl/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/gnu-getopt/bin" $fish_user_paths
-
-
-function kshell
-  for option in $argv
-    switch "$option"
-      case -p --production
-        kubectx aws-prd
-      case -s --staging
-        kubectx aws-stg
-    end
-  end
-  set name $argv[1]
-  set podname (kubectl get pods | grep "$name-[^-]\+-[^-]\+-[^-]\+ " | head -n 1 | cut -d ' ' -f 1)
-  kubectl exec -it $podname -- python manage.py shell_plus
-end
-
-function origin
-  git fetch origin $argv[1]
-  git checkout $argv[1]
-end
+direnv hook fish | source

@@ -1,7 +1,7 @@
 DOTFILES_FOLDER=-d ~/dotfiles
 BREW_FILE_LOCATION=./Brewfile
 BREW_BUNDLE_FILE=--file ${BREW_FILE_LOCATION}
-IGNORE_FOLDERS=-x raycast -x lists -x README.md -x Brewfile -x Makefile -x packer_compiled.lua
+IGNORE_FOLDERS=-x raycast -x README.md -x Brewfile -x Makefile -x packer_compiled.lua
 
 dry-run:
 	lsrc ${DOTFILES_FOLDER} ${IGNORE_FOLDERS}

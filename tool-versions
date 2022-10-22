@@ -1,4 +1,4 @@
-neovim nightly
+neovim 0.8.0
 erlang 25.0.2
 elixir 1.12.2-otp-24
 python 3.9.6

@@ -1,0 +1,13 @@
+source ~/.envrc
+
+PATH_add "$(brew --prefix openssl@3)"/bin
+PATH_add ~/.local/bin
+PATH_add "$(brew --prefix curl)"/bin
+PATH_add /Applications/Postgres.app/Contents/Versions/latest/bin
+
+LDFLAGS="-L$(brew --prefix openssl@3)/lib"
+CPPFLAGS="-I$(brew --prefix openssl@3)/include"
+KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --without-javac"
+
+
+# PATH_add "$(asdf where rust)"/bin

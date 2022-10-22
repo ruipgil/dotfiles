@@ -2,8 +2,8 @@
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 starship init fish | source
 
-fish_add_path -g /opt/homebrew/opt/curl/bin
-fish_add_path -g /Applications/Postgres.app/Contents/Versions/latest/bin
+# fish_add_path -g /opt/homebrew/opt/curl/bin
+# fish_add_path -g /Applications/Postgres.app/Contents/Versions/latest/bin
 
 set -g -x EDITOR "nvim"
 set -g -x ERL_AFLAGS "-kernel shell_history enabled"
@@ -14,9 +14,8 @@ set -g -x VISUAL "nvim"
 alias reload=". ~/.config/fish/config.fish"
 
 # file manipulation
-abbr -a v nvim
-abbr -a vim nvim
-abbr -a cat bat
+abbr -a v lvim
+abbr -a vim lvim
 
 # git
 abbr -a g git
@@ -76,10 +75,11 @@ abbr -a mxl mix lint
 
 fzf_key_bindings
 
-set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@3/lib"
-set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@3/include"
-set -gx KERL_CONFIGURE_OPTIONS "--disable-debug --disable-silent-rules --without-javac"
+# set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@3/lib"
+# set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@3/include"
+# set -gx KERL_CONFIGURE_OPTIONS "--disable-debug --disable-silent-rules --without-javac"
 
-fish_add_path /opt/homebrew/opt/openssl@3/bin
+# fish_add_path /opt/homebrew/opt/openssl@3/bin
+# fish_add_path /Users/ruigil/.local/bin
 
 direnv hook fish | source

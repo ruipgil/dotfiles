@@ -1,4 +1,4 @@
-source ~/.envrc
+source ~/.env
 
 PATH_add "$(brew --prefix openssl@3)"/bin
 PATH_add ~/.local/bin

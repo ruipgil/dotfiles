@@ -9,6 +9,7 @@
 	# undo = reset HEAD~1 --mixed
 	unadd = !git reset --hard
 	fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
+  readd = !git add $(git diff --name-only --cached)
 
 # [core]
 # 	pager = diff-so-fancy | less --tabs=4 -RFX
@@ -33,8 +34,8 @@
 [core]
     pager = delta
 
-[interactive]
-    diffFilter = delta --color-only
+#[interactive]
+#    diffFilter = delta --color-only
 
 [delta]
     navigate = true  # use n and N to move between diff sections
@@ -42,9 +43,9 @@
 [merge]
     conflictstyle = diff3
 
-[diff]
-    colorMoved = default
-	external = difft
+#[diff]
+#    colorMoved = default
+#	external = difft
 
 [color]
 	ui = true

@@ -20,7 +20,7 @@ vim.opt.shell = "/bin/sh"
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = false
+lvim.format_on_save = true
 lvim.colorscheme = "catppuccin-mocha"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- mvim.use_icons = false
@@ -31,6 +31,7 @@ lvim.leader = ","
 -- lvim.keys.normal_mode["<leader>s"] = ":sort<cr>"
 lvim.keys.normal_mode["<leader>a"] = ":ArgWrap<cr>"
 lvim.keys.normal_mode["<leader><space>"] = ":noh<cr>"
+lvim.keys.normal_mode["<leader>,"] = ":NvimTreeToggle<cr>"
 
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-J>"] = "<C-W><C-J>"
@@ -317,7 +318,7 @@ lvim.plugins = {
 
 -- require('leap').add_default_mappings()
 require("fidget").setup {}
-require'hop'.setup {}
+require 'hop'.setup {}
 
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -337,7 +338,7 @@ require'hop'.setup {}
 --
 --
 -- augroup sort_imports
-	-- autocmd!
-	-- autocmd BufWritePre ~/remote/code/tiger/**/*.ex,~/remote/code/tiger/**/*.exs silent! mkview! | silent! g/^\(\(alias\)\@!.\)*$\n\s*alias/+1,/\s*alias.*$\n^\(\(alias\)\@!.\)*$/ sort i
-	-- autocmd BufWritePost ~/remote/code/tiger/**/*.ex,~/remote/code/tiger/**/*.exs silent! loadview
+-- autocmd!
+-- autocmd BufWritePre ~/remote/code/tiger/**/*.ex,~/remote/code/tiger/**/*.exs silent! mkview! | silent! g/^\(\(alias\)\@!.\)*$\n\s*alias/+1,/\s*alias.*$\n^\(\(alias\)\@!.\)*$/ sort i
+-- autocmd BufWritePost ~/remote/code/tiger/**/*.ex,~/remote/code/tiger/**/*.exs silent! loadview
 -- augroup end

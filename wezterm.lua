@@ -4,49 +4,50 @@ return {
   -- timeout_milliseconds defaults to 1000 and can be omitted
   -- color_scheme = "tokyonight",
   -- color_scheme = "Catppuccin Latte",
-  color_scheme = "Catppuccin Mocha",
+  color_scheme = "Catppuccin Latte",
   leader = { key = 'Space', mods = 'CTRL' },
   keys = {
     {
       key = 'h',
-      mods = 'LEADER',
+      mods = 'SUPER',
       action = wezterm.action.ActivatePaneDirection "Left",
     },
     {
       key = 'l',
-      mods = 'LEADER',
+      mods = 'SUPER',
       action = wezterm.action.ActivatePaneDirection "Right",
     },
     {
       key = 'j',
-      mods = 'LEADER',
+      mods = 'SUPER',
       action = wezterm.action.ActivatePaneDirection "Down",
     },
     {
       key = 'k',
-      mods = 'LEADER',
+      mods = 'SUPER',
       action = wezterm.action.ActivatePaneDirection "Up",
     },
 
     {
       key = '|',
-      mods = 'LEADER|SHIFT',
+      mods = 'SUPER|SHIFT',
       action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
     },
     {
       key = '_',
-      mods = 'LEADER|SHIFT',
+      mods = 'SUPER|SHIFT',
       action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
     },
     {
       key = 'z',
-      mods = 'LEADER',
+      mods = 'SUPER',
       action = wezterm.action.TogglePaneZoomState,
     },
 
-    { key = '0', mods = 'LEADER', action = wezterm.action.ResetFontSize },
-    { key = '+', mods = 'LEADER', action = wezterm.action.IncreaseFontSize },
-    { key = '-', mods = 'LEADER', action = wezterm.action.DecreaseFontSize },
+    { key = 'x', mods = 'SUPER', action = wezterm.action.CloseCurrentPane { confirm = true } },
+    { key = '0', mods = 'SUPER', action = wezterm.action.ResetFontSize },
+    { key = '+', mods = 'SUPER', action = wezterm.action.IncreaseFontSize },
+    { key = '-', mods = 'SUPER', action = wezterm.action.DecreaseFontSize },
   },
   hide_tab_bar_if_only_one_tab = true,
   tab_bar_at_bottom = true,

@@ -84,6 +84,13 @@ _G.packer_plugins = {
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["bufferline.nvim"] = {
+    load_after = {},
+    loaded = true,
+    needs_bufread = false,
+    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/opt/bufferline.nvim",
+    url = "https://github.com/akinsho/bufferline.nvim"
+  },
   catppuccin = {
     loaded = true,
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/catppuccin",
@@ -124,10 +131,25 @@ _G.packer_plugins = {
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
+  ["elixir.nvim"] = {
+    loaded = true,
+    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/elixir.nvim",
+    url = "https://github.com/mhanberg/elixir.nvim"
+  },
   ["file-line"] = {
     loaded = true,
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/file-line",
     url = "https://github.com/bogado/file-line"
+  },
+  ["fugitive-gitlab.vim"] = {
+    loaded = true,
+    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/fugitive-gitlab.vim",
+    url = "https://github.com/shumphrey/fugitive-gitlab.vim"
   },
   ["fuzzy.nvim"] = {
     loaded = true,
@@ -158,11 +180,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
-  },
-  ["lir.nvim"] = {
-    loaded = true,
-    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/lir.nvim",
-    url = "https://github.com/tamago324/lir.nvim"
   },
   ["lsp-zero.nvim"] = {
     loaded = true,
@@ -204,6 +221,11 @@ _G.packer_plugins = {
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-surround"] = {
+    loaded = true,
+    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/nvim-surround",
+    url = "https://github.com/kylechui/nvim-surround"
+  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
@@ -215,9 +237,18 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["nvim-treesitter-context"] = {
+    load_after = {},
     loaded = true,
-    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
+    needs_bufread = false,
+    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-context",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
+  },
+  ["nvim-treesitter-textobjects"] = {
+    load_after = {},
+    loaded = true,
+    needs_bufread = false,
+    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -244,6 +275,11 @@ _G.packer_plugins = {
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["toggleterm.nvim"] = {
+    loaded = true,
+    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
+  },
   ["vim-argwrap"] = {
     loaded = true,
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/vim-argwrap",
@@ -264,11 +300,6 @@ _G.packer_plugins = {
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/vim-sleuth",
     url = "https://github.com/tpope/vim-sleuth"
   },
-  ["vim-surround"] = {
-    loaded = true,
-    path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/vim-surround",
-    url = "https://github.com/tpope/vim-surround"
-  },
   ["vim-wordmotion"] = {
     loaded = true,
     path = "/Users/ruigil/.local/share/nvim/site/pack/packer/start/vim-wordmotion",
@@ -277,6 +308,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Load plugins in order defined by `after`
+time([[Sequenced loading]], true)
+vim.cmd [[ packadd catppuccin ]]
+vim.cmd [[ packadd bufferline.nvim ]]
+vim.cmd [[ packadd nvim-treesitter ]]
+vim.cmd [[ packadd nvim-treesitter-textobjects ]]
+vim.cmd [[ packadd nvim-treesitter-context ]]
+time([[Sequenced loading]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

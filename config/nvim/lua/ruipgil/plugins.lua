@@ -74,6 +74,7 @@ require('packer').startup(function(use)
   use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
   use { "bogado/file-line" } -- Allows to :e file/path.extension:file_line
   use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }
+  use { 'numToStr/Navigator.nvim' }
 
   -- Git
   use { 'tpope/vim-fugitive' }

@@ -21,18 +21,23 @@ telescope.setup {
       },
     },
   },
-  -- extensions = {
-  --   fzf = {
-  --     fuzzy = true,
-  --     override_generic_sorter = true,
-  --     override_file_sorter = true,
-  --     case_mode = "smart_case",
-  --   }
-  -- }
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = false,
+      override_file_sorter = false,
+      case_mode = "smart_case",
+    },
+    fzy_native = {
+      override_generic_sorter = false,
+      override_file_sorter = true,
+    }
+  }
 }
 
 -- telescope.load_extension('fzf')
 telescope.load_extension('harpoon')
+-- require('telescope').load_extension('fzy_native')
 
 local fuzzy_live_grep = function()
   builtin.grep_string({ shorten_path = true, word_match = "-w", only_sort_text = true, search = '' })
@@ -44,3 +49,4 @@ vim.keymap.set('n', '<leader>b', builtin.buffers, {})
 vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<leader>s', builtin.live_grep, {})
+-- vim.keymap.set('n', '<leader>s', fuzzy_live_grep, {})

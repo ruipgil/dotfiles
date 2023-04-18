@@ -69,8 +69,21 @@ require('packer').startup(function(use)
   use { 'github/copilot.vim' }
 
   -- File/project navigation
+  use { 'vijaymarupudi/nvim-fzf' }
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    after = 'telescope.nvim',
+    run = 'make'
+  }
+  use { 'nvim-telescope/telescope-fzy-native.nvim' }
+  use {
+    "nvim-telescope/telescope.nvim",
+    after = 'telescope.nvim',
+    requires = {
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+    },
+  }
   use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
   use { "bogado/file-line" } -- Allows to :e file/path.extension:file_line
   use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }

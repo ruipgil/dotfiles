@@ -1,15 +1,22 @@
-local lsp = require('lsp-zero').preset('recommended')
+local lsp_zero = require('lsp-zero')
 local lspconfig = require('lspconfig')
+local null_ls = require('null-ls')
+local mason = require('mason')
+local mason_lspconfig = require('mason-lspconfig')
+local cmp_config = require("ruipgil.cmp")
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
+    local go_to_reference = function()
+        require('telescope.builtin').lsp_references({ includeDeclaration = false })
+    end
 
     vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, opts)
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "gr", function() vim.lsp.buf.references({ includeDeclaration = false }) end, opts)
+    vim.keymap.set("n", "gr", go_to_reference, opts)
     vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
@@ -19,12 +26,57 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<leader>dk", function() vim.diagnostic.goto_prev() end, opts)
 end
 
-lsp.on_attach(on_attach)
-lsp.setup_servers({ 'tsserver', 'eslint', 'elixirls', 'sumneko_lua' })
 
-lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
-lspconfig.elixirls.setup({
+lsp_zero.extend_lspconfig({
+    set_lsp_keymaps = false,
+    on_attach = on_attach,
     capabilities = capabilities,
+})
+lsp_zero.format_on_save({
+    servers = {
+        ['lua_ls'] = { 'lua' },
+        ['rust_analyzer'] = { 'rust' },
+        ['tsserver'] = { 'typescript' },
+        ['eslint'] = { 'javascript' },
+        ['null-ls'] = { 'elixir' },
+    }
+})
+
+mason.setup()
+mason_lspconfig.setup()
+mason_lspconfig.setup_handlers({
+    function(server_name)
+        lspconfig[server_name].setup({})
+    end,
+    ['elixirls'] = function()
+        lspconfig.elixirls.setup({
+            settings = {
+                elixirLS = {
+                    dialyzerEnabled = false,
+                    fetchDeps = false,
+                    enableTestLenses = true,
+                    suggestSpecs = true,
+                    dialyzerWarnOpts = {
+                        "no_match",
+                        "no_return",
+                        "no_opaque"
+                    }
+                }
+            }
+        })
+    end,
+    ['lua_ls'] = function()
+        local preset = lsp_zero.preset('recommended')
+        lspconfig.lua_ls.setup(preset.nvim_lua_ls())
+    end,
+})
+
+-- Call the language servers you have installed
+lspconfig.tsserver.setup({})
+lspconfig.eslint.setup({})
+lspconfig.rust_analyzer.setup({})
+lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls())
+lspconfig.elixirls.setup({
     settings = {
         elixirLS = {
             dialyzerEnabled = false,
@@ -39,14 +91,13 @@ lspconfig.elixirls.setup({
         }
     }
 })
-lsp.format_on_save({
-    servers = {
-        ['lua_ls'] = { 'lua' },
-        ['rust_analyzer'] = { 'rust' },
-        ['tsserver'] = { 'typescript' },
-        ['eslint'] = { 'javascript' },
-    }
+
+null_ls.setup({
+    debug = true,
+    sources = {
+        null_ls.builtins.diagnostics.credo,
+        null_ls.builtins.formatting.mix
+    },
 })
 
-local cmp_config = require("ruipgil.cmp")
 cmp_config.setup()

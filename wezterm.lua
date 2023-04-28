@@ -44,25 +44,30 @@ return {
   leader = { key = 'Space', mods = 'CTRL' },
   keys = {
     {
-      key = 'h',
-      mods = 'SUPER',
-      action = wezterm.action.ActivatePaneDirection "Left",
+      key = 'Space',
+      mods = 'LEADER',
+      action = wezterm.action.ActivateCopyMode,
     },
-    {
-      key = 'l',
-      mods = 'SUPER',
-      action = wezterm.action.ActivatePaneDirection "Right",
-    },
-    {
-      key = 'j',
-      mods = 'SUPER',
-      action = wezterm.action.ActivatePaneDirection "Down",
-    },
-    {
-      key = 'k',
-      mods = 'SUPER',
-      action = wezterm.action.ActivatePaneDirection "Up",
-    },
+    -- {
+    --   key = 'h',
+    --   mods = 'SUPER',
+    --   action = wezterm.action.ActivatePaneDirection "Left",
+    -- },
+    -- {
+    --   key = 'l',
+    --   mods = 'SUPER',
+    --   action = wezterm.action.ActivatePaneDirection "Right",
+    -- },
+    -- {
+    --   key = 'j',
+    --   mods = 'SUPER',
+    --   action = wezterm.action.ActivatePaneDirection "Down",
+    -- },
+    -- {
+    --   key = 'k',
+    --   mods = 'SUPER',
+    --   action = wezterm.action.ActivatePaneDirection "Up",
+    -- },
 
     {
       key = '|',
@@ -76,18 +81,18 @@ return {
     },
     {
       key = 'z',
-      mods = 'SUPER',
+      mods = 'LEADER',
       action = wezterm.action.TogglePaneZoomState,
     },
 
-    { key = 'x', mods = 'SUPER', action = wezterm.action.CloseCurrentPane { confirm = true } },
-    { key = '0', mods = 'SUPER', action = wezterm.action.ResetFontSize },
-    { key = '+', mods = 'SUPER', action = wezterm.action.IncreaseFontSize },
-    { key = '-', mods = 'SUPER', action = wezterm.action.DecreaseFontSize },
-    { key = 'h', mods = 'CTRL',  action = act.EmitEvent('ActivatePaneDirection-left') },
-    { key = 'j', mods = 'CTRL',  action = act.EmitEvent('ActivatePaneDirection-down') },
-    { key = 'k', mods = 'CTRL',  action = act.EmitEvent('ActivatePaneDirection-up') },
-    { key = 'l', mods = 'CTRL',  action = act.EmitEvent('ActivatePaneDirection-right') },
+    { key = 'x', mods = 'LEADER', action = wezterm.action.CloseCurrentPane { confirm = true } },
+    { key = '0', mods = 'LEADER', action = wezterm.action.ResetFontSize },
+    { key = '+', mods = 'LEADER', action = wezterm.action.IncreaseFontSize },
+    { key = '-', mods = 'LEADER', action = wezterm.action.DecreaseFontSize },
+    { key = 'h', mods = 'CTRL',   action = act.EmitEvent('ActivatePaneDirection-left') },
+    { key = 'j', mods = 'CTRL',   action = act.EmitEvent('ActivatePaneDirection-down') },
+    { key = 'k', mods = 'CTRL',   action = act.EmitEvent('ActivatePaneDirection-up') },
+    { key = 'l', mods = 'CTRL',   action = act.EmitEvent('ActivatePaneDirection-right') },
   },
   hide_tab_bar_if_only_one_tab = true,
   tab_bar_at_bottom = true,

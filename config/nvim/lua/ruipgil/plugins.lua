@@ -48,6 +48,7 @@ require('packer').startup(function(use)
   use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons' } } -- Fancier statusline
   use { 'lukas-reineke/indent-blankline.nvim' }                                     -- Add indentation guides even on blank lines
   use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons', after = "catppuccin" }
+  use { "ray-x/lsp_signature.nvim" }
 
   -- LSP
   use {
@@ -67,6 +68,22 @@ require('packer').startup(function(use)
   }
   use { "jose-elias-alvarez/null-ls.nvim" }
   use { 'github/copilot.vim' }
+  use({
+    "glepnir/lspsaga.nvim",
+    opt = true,
+    branch = "main",
+    -- event = "LspAttach",
+    config = function()
+      require("lspsaga").setup({})
+    end,
+    requires = {
+      { "nvim-tree/nvim-web-devicons" },
+      --Please make sure you install markdown and markdown_inline parser
+      { "nvim-treesitter/nvim-treesitter" }
+    }
+  })
+  use { "j-hui/fidget.nvim" }
+  use({ "elixir-tools/elixir-tools.nvim", requires = { "nvim-lua/plenary.nvim" } })
 
   -- File/project navigation
   use { 'vijaymarupudi/nvim-fzf' }
@@ -88,6 +105,17 @@ require('packer').startup(function(use)
   use { "bogado/file-line" } -- Allows to :e file/path.extension:file_line
   use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }
   use { 'numToStr/Navigator.nvim' }
+  use {
+    'junegunn/fzf.vim',
+    requires = { 'junegunn/fzf', run = ':call fzf#install()' }
+  }
+  use { 'gfanto/fzf-lsp.nvim' }
+  use { 'ibhagwan/fzf-lua',
+    -- optional for icon support
+    requires = {
+      'nvim-tree/nvim-web-devicons'
+    }
+  }
 
   -- Git
   use { 'tpope/vim-fugitive' }
@@ -104,6 +132,8 @@ require('packer').startup(function(use)
   use { "windwp/nvim-autopairs" }
   use { 'phaazon/hop.nvim', branch = 'v2' }
   use({ "kylechui/nvim-surround", tag = "*" })
+  use({ "tpope/vim-surround" })
+  use({ "tpope/vim-projectionist" })
 
   -- Autocompletion
   use {
@@ -112,6 +142,7 @@ require('packer').startup(function(use)
       'hrsh7th/cmp-nvim-lsp',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
+      'rafamadriz/friendly-snippets',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-buffer',
@@ -127,7 +158,6 @@ require('packer').startup(function(use)
 
   -- TO TRY:
   -- neodev
-  -- fidget
   -- refactoring.nvim
   -- telescope refactoring
   -- nvim-test / vim test

@@ -2,6 +2,9 @@ require("nvim-tree").setup({
   view = {
     centralize_selection = true,
     width = 40,
+    float = {
+      enable = true,
+    },
   },
   actions = {
     open_file = {

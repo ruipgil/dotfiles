@@ -50,3 +50,6 @@ vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<leader>s', builtin.live_grep, {})
 -- vim.keymap.set('n', '<leader>s', fuzzy_live_grep, {})
+
+local fzf = require("fzf-lua")
+fzf.setup()

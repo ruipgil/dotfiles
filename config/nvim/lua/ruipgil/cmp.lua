@@ -360,6 +360,17 @@ local setup = function()
       sources = option.sources,
     })
   end
+
+  require("luasnip.loaders.from_vscode").lazy_load()
+  require("luasnip.loaders.from_lua").lazy_load()
+  require("luasnip.loaders.from_snipmate").lazy_load()
+
+  -- If you want insert `(` after select function or method item
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  cmp.event:on(
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
+  )
 end
 
 return { setup = setup }

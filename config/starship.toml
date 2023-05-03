@@ -1,3 +1,5 @@
+palette = "catppuccin_latte"
+
 [aws]
 symbol = "  "
 

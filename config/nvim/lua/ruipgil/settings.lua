@@ -1,4 +1,4 @@
-vim.cmd [[colorscheme catppuccin-latte]]
+-- vim.cmd [[colorscheme catppuccin-latte]]
 
 vim.o.colorcolumn = "80,120"
 vim.o.undodir = vim.fn.expand("~/.tmp")

@@ -10,7 +10,6 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 vim.keymap.set({ 'n' }, '<leader><space>', ':noh<cr>', { silent = true })
-vim.keymap.set({ 'n' }, '<leader>a', ':ArgWrap<cr>', { silent = true })
 vim.keymap.set({ 'n' }, '<bar>', '<C-W>v')
 vim.keymap.set({ 'n' }, '_', ':split<cr>', { silent = true })
 

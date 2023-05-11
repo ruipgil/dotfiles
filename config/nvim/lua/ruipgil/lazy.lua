@@ -19,6 +19,12 @@ local on_attach = function(_client, bufnr)
   vim.keymap.set("n", "<leader>dk", function() vim.diagnostic.goto_prev() end, opts)
 end
 
+local fzf = function(func)
+  return function(...)
+    return require("fzf-lua")[func](...)
+  end
+end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -32,27 +38,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
-local on_attach = function(client, bufnr)
-  local opts = { buffer = bufnr, remap = false }
-  local go_to_reference = function()
-    require('telescope.builtin').lsp_references({ includeDeclaration = false })
-  end
-  -- lsp_signature.on_attach(signature_setup, bufnr)
-
-  vim.keymap.set("n", "<leader>cl", function() vim.lsp.codelens.run() end, opts)
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "gr", go_to_reference, opts)
-  vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-
-  vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-  vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "<leader>dj", function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set("n", "<leader>dk", function() vim.diagnostic.goto_prev() end, opts)
-end
 
 
 require("lazy").setup({
@@ -354,7 +339,7 @@ require("lazy").setup({
         function(server_name)
           lspconfig[server_name].setup({})
         end,
-        ['elixirls@v0.13.0'] = function()
+        ['elixirls'] = function()
           lspconfig.elixirls.setup({
             settings = {
               elixirLS = {
@@ -463,15 +448,21 @@ require("lazy").setup({
       -- require('telescope').load_extension('fzy_native')
 
       local fuzzy_live_grep = function()
-        builtin.grep_string({ shorten_path = true, word_match = "-w", only_sort_text = true, search = '' })
+        builtin.grep_string({
+          shorten_path = true,
+          word_match = "-w",
+          only_sort_text = true,
+          search = ''
+        })
       end
 
-      vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = "Finds files in current cwd" })
-      vim.keymap.set('n', '<leader>r', builtin.oldfiles, {})
-      vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-      vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
-      vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = "Finds files in current cwd" })
-      vim.keymap.set('n', '<leader>s', builtin.live_grep, { desc = "Live search string in current cwd" })
+      -- vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = "Finds files in current cwd" })
+      -- vim.keymap.set('n', '<leader>r', builtin.oldfiles, {})
+      -- vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+      -- vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
+      -- vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = "Finds files in current cwd" })
+      -- vim.keymap.set('n', '<leader>s', builtin.live_grep_native,
+      -- 	{ desc = "Live search string in current cwd" })
       -- vim.keymap.set('n', '<leader>s', fuzzy_live_grep, {})
     end
   },
@@ -499,6 +490,24 @@ require("lazy").setup({
     end
   },
   { 'bogado/file-line' },
+  -- {
+  -- 	"nvim-neo-tree/neo-tree.nvim",
+  -- 	branch = "v2.x",
+  -- 	keys = {
+  -- 		{ '<leader>,', ":Neotree<cr>", desc = 'Toggles the side-tree navigator' }
+  -- 	},
+  -- 	opts = {
+  --
+  -- 	},
+  -- 	config = function(_, opts)
+  -- 		require("neo-tree").setup(opts)
+  -- 	end,
+  -- 	requires = {
+  -- 		"nvim-lua/plenary.nvim",
+  -- 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+  -- 		"MunifTanjim/nui.nvim",
+  -- 	}
+  -- },
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -508,14 +517,14 @@ require("lazy").setup({
     opts = {
       view = {
         centralize_selection = true,
-        width = 40,
+        width = 50,
         float = {
-          enable = true,
+          enable = false,
         },
       },
       actions = {
         open_file = {
-          quit_on_open = true,
+          quit_on_open = false,
         }
       }
     },
@@ -538,10 +547,28 @@ require("lazy").setup({
       require('Navigator').setup()
     end
   },
-
-  { 'tpope/vim-fugitive' },
+  { "tpope/vim-commentary",    event = { "BufReadPost", "BufNewFile" } },
+  { "tpope/vim-dispatch",      event = "VeryLazy" },
+  { "tpope/vim-eunuch",        event = "VeryLazy" },
+  { "tpope/vim-projectionist", event = { "BufReadPost", "BufNewFile" } },
+  { "tpope/vim-repeat",        event = { "BufReadPost", "BufNewFile" } },
+  { "tpope/vim-rsi",           event = "VeryLazy" },
+  { "tpope/vim-surround",      event = { "BufReadPost", "BufNewFile" } },
+  { "tpope/vim-vinegar" },
+  {
+    'tpope/vim-fugitive',
+    event = "VeryLazy",
+    keys = {
+      {
+        '<leader>go',
+        ':GBrowse',
+        desc = 'Opens the current file on the web front-end of the git hosting provider'
+      },
+    }
+  },
   { 'shumphrey/fugitive-gitlab.vim' },
-  { 'tpope/vim-rhubarb' },
+  { 'farmergreg/vim-lastplace',     event = "VeryLazy" },
+  { 'tpope/vim-rhubarb',            event = "VeryLazy" },
   -- { "mhanberg/elixir.nvim", requires = { "nvim-lua/plenary.nvim" } }, TODO
   {
     'akinsho/git-conflict.nvim',
@@ -550,12 +577,12 @@ require("lazy").setup({
     end
   },
   -- { 'tpope/vim-sleuth' },      -- Detect tabstop and shiftwidth automatically
-  {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
-  }, -- "gc" to comment visual regions/lines
+  -- {
+  -- 	'numToStr/Comment.nvim',
+  -- 	config = function()
+  -- 		require('Comment').setup()
+  -- 	end
+  -- }, -- "gc" to comment visual regions/lines
   { "chaoren/vim-wordmotion" },
   {
     "FooSoft/vim-argwrap",
@@ -692,8 +719,6 @@ require("lazy").setup({
       require('hop').setup()
     end
   },
-  { "tpope/vim-surround" },
-  { "tpope/vim-projectionist" },
   {
     "mhanberg/output-panel.nvim",
     event = "VeryLazy",
@@ -705,14 +730,109 @@ require("lazy").setup({
     end
   },
   {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      local actions = require("fzf-lua.actions")
+      require("fzf-lua").setup {
+        winopts = {
+          height = 0.6,           -- window height
+          width = 0.9,
+          row = 0,                -- window row position (0=top, 1=bottom)
+        },
+        actions = {
+          files = {
+            ["default"] = actions.file_edit_or_qf,
+            ["ctrl-x"] = actions.file_split,
+            ["ctrl-v"] = actions.file_vsplit,
+            ["ctrl-t"] = actions.file_tabedit,
+            ["alt-q"] = actions.file_sel_to_qf,
+            ["alt-l"] = actions.file_sel_to_ll,
+          },
+        },
+        lsp = {
+          symbols = {
+            symbol_icons = {
+              File = "󰈙",
+              Module = "",
+              Namespace = "󰦮",
+              Package = "",
+              Class = "󰆧",
+              Method = "󰊕",
+              Property = "",
+              Field = "",
+              Constructor = "",
+              Enum = "",
+              Interface = "",
+              Function = "󰊕",
+              Variable = "󰀫",
+              Constant = "󰏿",
+              String = "",
+              Number = "󰎠",
+              Boolean = "󰨙",
+              Array = "󱡠",
+              Object = "",
+              Key = "󰌋",
+              Null = "󰟢",
+              EnumMember = "",
+              Struct = "󰆼",
+              Event = "",
+              Operator = "󰆕",
+              TypeParameter = "󰗴",
+            },
+          },
+        },
+      }
+    end,
+    keys = {
+      { "<c-p>",      fzf("files"),            desc = "Find files" },
+      -- { "<space>p", fzf("git_status"), desc = "Find of changes files" },
+      -- {
+      -- 	"<space>vp",
+      -- 	function()
+      -- 		fzf("files") { cwd = vim.fn.expand("~/.local/share/nvim/lazy") }
+      -- 	end,
+      -- 	desc = "Find files of vim plugins",
+      -- },
+      -- { "<space>df", "<cmd>Files ~/src/<cr>", desc = "Find files in all projects" },
+      -- { "<leader>b", fzf("blines"),           desc = "FZF Buffer Lines" },
+      --
+      -- vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = "Finds files in current cwd" })
+      -- vim.keymap.set('n', '<leader>r', builtin.oldfiles, {})
+      -- vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+      -- vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
+      { "<leader>r",  fzf("oldfiles"),         desc = "Open recent files" },
+      { "<leader>b",  fzf("buffers"),          desc = "Show current buffers" },
+      { "<leader>s",  fzf("live_grep_native"), desc = "Search in project" },
+      { "<leader>gs", fzf("git_status"),       desc = "Show git status" },
+      -- { "<space>a", ":GlobalProjectSearch<cr>", desc = "Search in all projects" },
+    },
+  },
+  {
+    "stevearc/dressing.nvim",
+    config = function()
+      require("dressing").setup {
+        select = {
+          backend = {
+            -- "telescope",
+            "fzf",
+          },
+        },
+      }
+    end,
+  },
+  {
     "folke/noice.nvim",
     enabled = false,
     event = "VeryLazy",
     opts = {
       cmdline = {
-        enabled = true,                                -- disable if you use native command line UI
-        view = "cmdline_popup",                        -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-        opts = { buf_options = { filetype = "vim" } }, -- enable syntax highlighting in the cmdline
+        enabled = true,                                        -- disable if you use native command line UI
+        view = "cmdline_popup",                                -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+        opts = { buf_options = { filetype = "vim" } },         -- enable syntax highlighting in the cmdline
         icons = {
           ["/"] = { icon = " " },
           ["?"] = { icon = " " },
@@ -770,4 +890,26 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim",
     },
   },
+  { "mg979/vim-visual-multi", branch = "master", event = { "BufReadPost", "BufNewFile" } },
+}, {
+  concurrency = 30,
+  install = {
+    missing = true,
+    colorscheme = { "catppuccin-latte" },
+  },
+  -- performance = {
+  -- 	rtp = {
+  -- 		-- disable some rtp plugins
+  -- 		disabled_plugins = {
+  -- 			"gzip",
+  -- 			-- "matchit",
+  -- 			-- "matchparen",
+  -- 			-- "netrwPlugin",
+  -- 			"tarPlugin",
+  -- 			"tohtml",
+  -- 			"tutor",
+  -- 			"zipPlugin",
+  -- 		},
+  -- 	},
+  -- },
 })

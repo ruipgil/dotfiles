@@ -12,6 +12,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set({ 'n' }, '<leader><space>', ':noh<cr>', { silent = true })
 vim.keymap.set({ 'n' }, '<bar>', '<C-W>v')
 vim.keymap.set({ 'n' }, '_', ':split<cr>', { silent = true })
+vim.keymap.set({ 'n' }, 'cp', ':let @+ = expand("%")<cr>', { silent = true })
 
 vim.api.nvim_create_user_command('Q', 'q', {})
 vim.api.nvim_create_user_command('Qall', 'qall', {})

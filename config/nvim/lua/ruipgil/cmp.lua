@@ -277,7 +277,18 @@ local setup = function()
       { name = "luasnip" },
       -- { name = "cmp_tabnine" },
       { name = "nvim_lua" },
-      { name = "buffer" },
+      {
+        name = "buffer",
+        option = {
+          get_bufnrs = function()
+            local bufs = {}
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+              bufs[vim.api.nvim_win_get_buf(win)] = true
+            end
+            return vim.tbl_keys(bufs)
+          end
+        },
+      },
       { name = "calc" },
       { name = "emoji" },
       { name = "treesitter" },
@@ -361,7 +372,7 @@ local setup = function()
     })
   end
 
-  require("luasnip.loaders.from_vscode").lazy_load()
+  require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } })
   require("luasnip.loaders.from_lua").lazy_load()
   require("luasnip.loaders.from_snipmate").lazy_load()
 

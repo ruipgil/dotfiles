@@ -375,6 +375,8 @@ require("lazy").setup({
       local null_ls = require("null-ls")
 
       null_ls.setup {
+        debug = true,
+        default_timeout = 8000,
         sources = {
           null_ls.builtins.diagnostics.credo,
           null_ls.builtins.formatting.mix,
@@ -387,8 +389,8 @@ require("lazy").setup({
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.shfmt,
           null_ls.builtins.formatting.prettier,
-          null_ls.builtins.formatting.trim_whitespace,
-          null_ls.builtins.formatting.trim_newlines,
+          -- null_ls.builtins.formatting.trim_whitespace,
+          -- null_ls.builtins.formatting.trim_newlines,
         },
         on_attach = on_attach
       }
@@ -576,13 +578,7 @@ require("lazy").setup({
       require('git-conflict').setup()
     end
   },
-  -- { 'tpope/vim-sleuth' },      -- Detect tabstop and shiftwidth automatically
-  -- {
-  -- 	'numToStr/Comment.nvim',
-  -- 	config = function()
-  -- 		require('Comment').setup()
-  -- 	end
-  -- }, -- "gc" to comment visual regions/lines
+  { 'tpope/vim-sleuth' }, -- Detect tabstop and shiftwidth automatically
   { "chaoren/vim-wordmotion" },
   {
     "FooSoft/vim-argwrap",
@@ -739,9 +735,9 @@ require("lazy").setup({
       local actions = require("fzf-lua.actions")
       require("fzf-lua").setup {
         winopts = {
-          height = 0.6,           -- window height
+          height = 0.6, -- window height
           width = 0.9,
-          row = 0,                -- window row position (0=top, 1=bottom)
+          row = 0,      -- window row position (0=top, 1=bottom)
         },
         actions = {
           files = {
@@ -830,9 +826,9 @@ require("lazy").setup({
     event = "VeryLazy",
     opts = {
       cmdline = {
-        enabled = true,                                        -- disable if you use native command line UI
-        view = "cmdline_popup",                                -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-        opts = { buf_options = { filetype = "vim" } },         -- enable syntax highlighting in the cmdline
+        enabled = true,                                -- disable if you use native command line UI
+        view = "cmdline_popup",                        -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+        opts = { buf_options = { filetype = "vim" } }, -- enable syntax highlighting in the cmdline
         icons = {
           ["/"] = { icon = " " },
           ["?"] = { icon = " " },
@@ -891,6 +887,14 @@ require("lazy").setup({
     },
   },
   { "mg979/vim-visual-multi", branch = "master", event = { "BufReadPost", "BufNewFile" } },
+  { "wellle/targets.vim" },
+  -- lspsaga
+  {
+    "ray-x/lsp_signature.nvim",
+    config = function(_, opts)
+      require("lsp_signature").setup(opts)
+    end,
+  },
 }, {
   concurrency = 30,
   install = {

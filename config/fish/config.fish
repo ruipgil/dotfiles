@@ -39,6 +39,7 @@ abbr -a commit git commit -m \"
 abbr -a branch git create-branch
 abbr -a feature git feature
 abbr -a pullom git pull origin master
+abbr -a gsw git switch
 
 function origin
   git fetch origin $argv[1]

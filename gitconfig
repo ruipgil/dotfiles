@@ -11,55 +11,22 @@
 	fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
   readd = !git add $(git diff --name-only --cached)
 
-# [core]
-# 	pager = diff-so-fancy | less --tabs=4 -RFX
-# [interactive]
-# 	diffFilter = diff-so-fancy --patch
-# [color]
-# 	ui = true
-# [color "diff-highlight"]
-# 	oldNormal = red bold
-# 	oldHighlight = red bold 52
-# 	newNormal = green bold
-# 	newHighlight = green bold 22
-# [color "diff"]
-# 	meta = 11
-# 	frag = magenta bold
-# 	func = 146 bold
-# 	commit = yellow bold
-# 	old = red bold
-# 	new = green bold
-# 	whitespace = red reverse
 
 [core]
     pager = delta
 
-#[interactive]
-#    diffFilter = delta --color-only
+[interactive]
+    diffFilter = delta --color-only
 
 [delta]
     navigate = true  # use n and N to move between diff sections
+    light = true
 
 [merge]
     conflictstyle = diff3
 
-#[diff]
-#    colorMoved = default
-#	external = difft
+[diff]
+    colorMoved = default
 
 [color]
-	ui = true
-
-; [color "diff-highlight"]
-; 	oldNormal = red bold
-; 	oldHighlight = red bold 52
-; 	newNormal = green bold
-; 	newHighlight = green bold 22
-; [color "diff"]
-; 	meta = 11
-; 	frag = magenta bold
-; 	func = 146 bold
-; 	commit = yellow bold
-; 	old = red bold
-; 	new = green bold
-; 	whitespace = red reverse
+    ui = true

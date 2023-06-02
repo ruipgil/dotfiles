@@ -17,6 +17,7 @@ local on_attach = function(_client, bufnr)
   vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
   vim.keymap.set("n", "<leader>dj", function() vim.diagnostic.goto_next() end, opts)
   vim.keymap.set("n", "<leader>dk", function() vim.diagnostic.goto_prev() end, opts)
+  vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format() end, opts)
 end
 
 local fzf = function(func)
@@ -50,6 +51,16 @@ require("lazy").setup({
     "catppuccin/nvim",
     name = "catppuccin",
     opts = {
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+      },
+      show_end_of_buffer = true,
+      dim_inactive = {
+        enabled = true,
+        shade = "dark",
+        percentage = 0.15,
+      },
       integrations = {
         cmp = true,
         notify = true,
@@ -282,7 +293,7 @@ require("lazy").setup({
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
+      -- 'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
       'tzachar/cmp-fuzzy-buffer',
       'tzachar/fuzzy.nvim'
@@ -563,15 +574,33 @@ require("lazy").setup({
     keys = {
       {
         '<leader>go',
-        ':GBrowse',
+        ':GBrowse<cr>',
         desc = 'Opens the current file on the web front-end of the git hosting provider'
+      },
+      {
+        '<leader>gd',
+        ':Gvdiffsplit!<cr>',
+        desc = 'Opens a 3 way diff view'
       },
     }
   },
   { 'shumphrey/fugitive-gitlab.vim' },
   { 'farmergreg/vim-lastplace',     event = "VeryLazy" },
   { 'tpope/vim-rhubarb',            event = "VeryLazy" },
-  -- { "mhanberg/elixir.nvim", requires = { "nvim-lua/plenary.nvim" } }, TODO
+  {
+    "elixir-tools/elixir-tools.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    keys = {
+      { '<leader>fp', ':ElixirFromPipe<cr>', desc = '', silent = true },
+      { '<leader>tp', ':ElixirToPipe<cr>',   desc = '', silent = true }
+    },
+    config = function()
+      require("elixir").setup({
+        credo = { enable = false },
+        elixirls = { enable = false },
+      })
+    end
+  },
   {
     'akinsho/git-conflict.nvim',
     config = function()
@@ -734,10 +763,14 @@ require("lazy").setup({
     config = function()
       local actions = require("fzf-lua.actions")
       require("fzf-lua").setup {
+        "fzf-native",
         winopts = {
+          preview = {
+            layout = "vertical"
+          },
           height = 0.6, -- window height
           width = 0.9,
-          row = 0,      -- window row position (0=top, 1=bottom)
+          row = 0.5,    -- window row position (0=top, 1=bottom)
         },
         actions = {
           files = {
@@ -891,6 +924,12 @@ require("lazy").setup({
   -- lspsaga
   {
     "ray-x/lsp_signature.nvim",
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "rounded"
+      }
+    },
     config = function(_, opts)
       require("lsp_signature").setup(opts)
     end,

@@ -1,9 +1,10 @@
+fish_add_path -g /opt/homebrew/bin/
+
 set -g fish_greeting
 brew shellenv | source
 source $(brew --prefix asdf)/libexec/asdf.fish
 starship init fish | source
 
-# fish_add_path -g /opt/homebrew/opt/curl/bin
 # fish_add_path -g /Applications/Postgres.app/Contents/Versions/latest/bin
 
 set -g -x EDITOR "nvim"

@@ -1,4 +1,7 @@
+PATH_add "/opt/homebrew/bin/"
+
 dotenv ~/.env
+
 
 PATH_add "$(brew --prefix openssl@3)"/bin
 PATH_add ~/.local/bin
@@ -13,3 +16,4 @@ KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --without-javac"
 # PATH_add "$(asdf where rust)"/bin
 
 HOMEBREW_NO_AUTO_UPDATE=1
+BAT_THEME="Catppuccin-latte"
